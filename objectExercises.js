@@ -110,9 +110,127 @@ chauncey.addFriend(arnold, coco, jordan, sonny);
 //chauncey.greet(arnold);
 //arnold.lazyGreet(chauncey);
 //console.log(chauncey.friends);
-chauncey.createGreetingsForFriends();
-arnold.createGreetingsForFriends();
-sonny.greet(jordan);
-jordan.greet(sonny);
-jordan.printContactInfo();
-sonny.printContactInfo();
+// chauncey.createGreetingsForFriends();
+// arnold.createGreetingsForFriends();
+// sonny.greet(jordan);
+// jordan.greet(sonny);
+// jordan.printContactInfo();
+// sonny.printContactInfo();
+
+
+/*
+Card Constructor
+Create a class Card. A card object will have 2 properties:
+
+point - the point value of the card: a number between 1 and 13.
+suit - the suit of the card: one of diamonds, clubs, hearts and spades.
+A card will be created thus:
+
+> var myCard = new Card(5, 'diamonds')
+
+And you can access the individual properties like:
+> myCard.point 5
+> myCard.suit 'diamonds'
+*/
+
+
+
+class Card {
+    constructor (point, suit) {
+        this.point = point;
+        this.suit = suit;
+    }
+    getImageUrl() {
+        return `images/${this.point}_of_${this.suit}.png`;
+    }
+
+}
+
+class Hand extends Card {
+    constructor (point, suit, cards) {
+        super(point, suit);
+        this.cards = [];
+    }
+    addCard(card) {
+        this.cards.push(card);
+    }
+}
+
+const myHand = new Hand();
+
+// myHand.addCard(new Card(1, 'diamonds'));
+// myHand.addCard(new Card(1, 'hearts'))
+
+//console.log(myHand.cards);
+
+/*
+Deck constructor
+A deck is also represented as a collection of cards, but it would also be convenient for it to be able to shuffle 
+itself, and be asked to draw a card. We would like to be able to do this with a Deckconstructor:
+
+> var myDeck = new Deck()
+> myDeck.draw()
+Card {point: 6, suit: "clubs"}
+> myDeck.draw()
+Card {point: 1, suit: "spades"}
+> myDeck.shuffle()
+> myDeck.numCardsLeft()
+50
+Implement a Deck constructor that will allow for the above code to work.
+
+
+*/
+
+class Deck {
+    constructor (cards) {
+        this.cards = [];
+    }
+    drawCard() {
+        if (this.cards.length) {
+            console.log(`You have drawn the ${this.cards[this.cards.length - 1].point} of ${this.cards[this.cards.length - 1].suit}`);
+            myHand.addCard(this.cards.pop());
+        } else {
+            console.log(`There are no more cards to draw`);
+        }
+    }
+    shuffleDeck() {
+        myHand.cards.forEach(card => {
+            this.cards.push(card);
+         });
+        myHand.cards = [];
+        let random = () => {
+        for (let i = this.cards.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [this.cards[i], this.cards[j]] = [this.cards[j], this.cards[i]];
+            }
+        } 
+        random();
+    }
+}
+
+const myDeck = new Deck();
+
+
+// console.log(myDeck);
+// myDeck.drawCard();
+// myDeck.shuffleDeck();
+// console.log(myDeck);
+// myDeck.drawCard();
+// myDeck.drawCard();
+// myDeck.drawCard();
+const deckGenerator = (suit) => {
+    let i = 1;
+    while ( i <= 13) {
+        myDeck.cards.push(new Card(i, suit));
+        i++;
+    }
+}
+deckGenerator('clubs');
+deckGenerator('spades');
+deckGenerator('hearts');
+deckGenerator('diamonds');
+myDeck.shuffleDeck();
+console.log(myDeck);
+myDeck.drawCard();
+myDeck.drawCard();
+console.log(myDeck.cards.length);
