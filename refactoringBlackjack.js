@@ -38,7 +38,7 @@ class Deck {
     }
     drawCard(owner) {
         if (this.cards.length) {
-            console.log(`${owner.name} have drawn the ${this.cards[this.cards.length - 1].point} of ${this.cards[this.cards.length - 1].suit}`);
+            console.log(`${owner.name} was dealt the ${this.cards[this.cards.length - 1].point} of ${this.cards[this.cards.length - 1].suit}`);
             owner.addCard(this.cards.pop());
         } else {
             console.log(`There are no more cards to draw`);
@@ -89,13 +89,14 @@ const newGame = () => {
     myDeck.drawCard(myHand);
     myDeck.drawCard(dealerHand);
     myDeck.drawCard(myHand);
-    console.log(myHand.handValue());
-    while (dealerHand.handValue <= 16) {
+    //console.log(myHand.handValue());
+    while (dealerHand.handValue() <= 16) {
         myDeck.drawCard(dealerHand);
         dealerHand.handValue();
     }
     while (myHand.handValue() <= 16) {
         myDeck.drawCard(myHand);
+        console.log(`You have ${myHand.handValue()}.`)
         myHand.handValue();
     }
     if (dealerHand.handValue() > 21) {
