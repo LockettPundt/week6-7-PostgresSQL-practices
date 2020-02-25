@@ -10,12 +10,12 @@ let mom = {
     lastName: 'Wong',
     eyeColor: 'brown',
     hairColor: 'black',
-    showInfo: function() {
+    showInfo: function () {
         console.log(this.firstName, this.lastName, this.eyeColor, this.hairColor);
     }
 };
 
-let daughter  = {
+let daughter = {
     firstName: 'Ilene',
     hairColor: 'brown',
 };
@@ -68,15 +68,15 @@ and phone of '495-586-3456', store it in the variable 'jordan'.
 */
 
 class Person {
-    constructor (name, email, phone) {
+    constructor(name, email, phone) {
         this.name = name;
         this.friends = [];
         this.email = email;
         this.phone = phone;
     }
     addFriend(friend) {
-        // const friendArr = friend.split(',');
-        this.friends.push(friend);
+        let friendArr = [...arguments]
+        friendArr.forEach(item => this.friends.push(item));
     }
     createGreeting(other) {
         return `Yo ${other.name}! I'm ${this.name}.`;
@@ -103,12 +103,9 @@ const jordan = new Person('Jordan', 'jordan@aol.com', '495-586-3456');
 const chauncey = new Person('Chauncey');
 const arnold = new Person('Arnold');
 const coco = new Person("Coco");
-coco.addFriend(arnold);
-coco.addFriend(chauncey);
-arnold.addFriend(coco);
-arnold.addFriend(chauncey);
-chauncey.addFriend(arnold);
-chauncey.addFriend(coco);
+coco.addFriend(arnold, chauncey, sonny, jordan);
+arnold.addFriend(coco.chauncey, sonny);
+chauncey.addFriend(arnold, coco, jordan, sonny);
 //console.log(arnold.friends);
 //chauncey.greet(arnold);
 //arnold.lazyGreet(chauncey);
@@ -118,9 +115,4 @@ arnold.createGreetingsForFriends();
 sonny.greet(jordan);
 jordan.greet(sonny);
 jordan.printContactInfo();
-
-
-
-
-
-
+sonny.printContactInfo();
