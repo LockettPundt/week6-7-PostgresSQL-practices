@@ -1,0 +1,7 @@
+<div style="background: salmon; width: 50vh">
+   <ul style="font-size: 2rem;">
+    ${arrayOfData.map(item => {
+        return `<li><a href='./${item.id}'>${item.name}: ${item.year}</a></li>`
+    }).join('')}
+   </ul>
+</div>
