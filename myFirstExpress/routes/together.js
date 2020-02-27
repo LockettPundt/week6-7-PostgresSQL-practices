@@ -1,29 +1,31 @@
-
 'use strict'
 const express = require('express'),
 router = express.Router();
 
-
+const meowWoofGenerator = (sound) => {
+    let i = 0;
+    let arr = [];
+    let blank = sound.includes('M') ? 'M' : 'W';
+    while (i < 30) {
+        arr.push(`<p style='color:green;'>${blank.repeat(i)}${sound}<p> `)
+        i++;
+    }
+    return arr.join('');
+}
 
 router.get('/', (req, res) => {
-    const togetherAtLast = `
-    <h1>meow!!!<h1>
-    <h1>woof!!!<h1>
-    <h1>meow!!!<h1>
-    <h1>woof!!!<h1>
-    <h1>meow!!!<h1>
-    <h1>woof!!!<h1>
-    <h1>meow!!!<h1>
-    <h1>woof!!!<h1>
-    <h1>meow!!!<h1>
-    <h1>woof!!!<h1>
-    <h1>meow!!!<h1>
-    <h1>woof!!!<h1>
-    `
-    res
-    .status(200)
-    .send(togetherAtLast)
-    .end();
+
+   
+    res.render('template', {
+        locals: {
+            title: 'Together at last!',
+            meow: meowWoofGenerator("MEOW"),
+            woof: meowWoofGenerator("WOOF")
+        },
+        partials: {
+            partial: 'partial-together'
+        }
+    })
 });
 
 module.exports = router;

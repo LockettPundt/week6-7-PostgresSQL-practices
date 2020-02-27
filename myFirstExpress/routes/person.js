@@ -12,10 +12,18 @@ router.get('/', (req, res) => {
     const greeting = !!name ? `<h1> Hi ${name}!!!<h1>` : `<h1>I'm not sure who you are?<h1>`;
     const ageInfo = !!age ? `<h1>You were born in ${2020 - age}.` : `<h1>How old you are?<h1>`;
     const location = !!loc ? `<h1>You are located in ${loc}.` : `<h1>Where are you located?<h1>`;
-    res.status(200).send( 
-        greeting + ageInfo + location
-    ).end();
-
+    res.render('template', {
+        locals: {
+            title: 'Hi there',
+            greetingDisplay: greeting,
+            ageDisplay: ageInfo,
+            locationDisplay: location
+        },
+        partials: {
+            partial: 'partial-person'
+        }
+    })
+ 
 });
 
 module.exports = router;
