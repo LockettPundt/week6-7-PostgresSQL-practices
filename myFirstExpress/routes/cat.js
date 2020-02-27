@@ -3,12 +3,21 @@
 const express = require('express'),
 router = express.Router();
 
+const data = [
+    { name: 'Sam', color: 'Grey'},
+    { name: 'Chloe', color: 'Tabby'}
+];
+
 router.get('/', (req, res) => {
-    const snippet = `<h1>meow!!!!<h1>`;
-    res
-        .status(200)
-        .send(snippet)
-        .end();
+    res.render('template', {
+        locals: {
+            title: 'CAT PAGE!!',
+            someOrOther: data
+        },
+        partials: {
+            partial: 'partial-cat'
+        }
+    })
 });
 
 
